@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange
 from .models import User
 
@@ -37,4 +37,6 @@ class BudgetForm(FlaskForm):
     submit = SubmitField('Add Budget')
 
 class SavingsGoalForm(FlaskForm):
-    goal = String
+    goal = StringField('Goal', validators=[DataRequired()])
+    amount = IntegerField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Add Goal')

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ current_user.username }}!</h1>
+
+<h2>Transactions</h2>
+<ul>
+    {% for transaction in transactions %}
+        <li>{{ transaction.date }}: {{ transaction.category }} - ${{ transaction.amount }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Budgets</h2>
+<ul>
+    {% for budget in budgets %}
+        <li>{{ budget.category }}: ${{ budget.amount }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Savings Goals</h2>
+<ul>
+    {% for goal in savings_goals %}
+        <li>{{ goal.goal }}: ${{ goal.amount }} (Current: ${{ goal.current_amount }})</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('main.add_transaction') }}">Add Transaction</a>
+<a href="{{ url_for('main.add_budget') }}">Add Budget</a>
+<a href="{{ url_for('main.add_savings_goal') }}">Add Savings Goal</a>
+{% endblock %}
