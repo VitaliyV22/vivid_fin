@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}Add Savings Goal{% endblock %}
 
@@ -6,20 +6,22 @@
 <h1>Add Savings Goal</h1>
 <form action="{{ url_for('main.add_savings_goal') }}" method="post">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.goal.label }}<br>
-        {{ form.goal(size=32) }}<br>
+    <div>
+        {{ form.goal.label }}
+        {{ form.goal(size=32) }}
         {% for error in form.goal.errors %}
-            <span class="error">{{ error }}</span>
+            <span class="error">[{{ error }}]</span>
         {% endfor %}
-    </p>
-    <p>
-        {{ form.amount.label }}<br>
-        {{ form.amount }}<br>
+    </div>
+    <div>
+        {{ form.amount.label }}
+        {{ form.amount(size=32) }}
         {% for error in form.amount.errors %}
-            <span class="error">{{ error }}</span>
+            <span class="error">[{{ error }}]</span>
         {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
 </form>
 {% endblock %}

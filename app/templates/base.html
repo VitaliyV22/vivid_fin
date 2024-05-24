@@ -2,32 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %} - Personal Finance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Finance App{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('main.index') }}">Home</a></li>
+    <header>
+        <nav>
+            <a href="{{ url_for('main.index') }}">Home</a>
             {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+                <a href="{{ url_for('main.add_transaction') }}">Add Transaction</a>
+                <a href="{{ url_for('main.add_budget') }}">Add Budget</a>
+                <a href="{{ url_for('main.add_savings_goal') }}">Add Savings Goal</a>
+                <a href="{{ url_for('main.logout') }}">Logout</a>
             {% else %}
-                <li><a href="{{ url_for('main.login') }}">Login</a></li>
-                <li><a href="{{ url_for('main.register') }}">Register</a></li>
+                <a href="{{ url_for('main.login') }}">Login</a>
+                <a href="{{ url_for('main.register') }}">Register</a>
             {% endif %}
-        </ul>
-    </nav>
-    <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        </nav>
+    </header>
+    <main>
         {% block content %}{% endblock %}
-    </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Finance App</p>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Transaction{% endblock %}
+
+{% block content %}
+<h1>Add Transaction</h1>
+<form action="{{ url_for('main.add_transaction') }}" method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.amount.label }}
+        {{ form.amount(size=32) }}
+        {% for error in form.amount.errors %}
+            <span class="error">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.category.label }}
+        {{ form.category(size=32) }}
+        {% for error in form.category.errors %}
+            <span class="error">[{{ error }}]</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+{% endblock %}
