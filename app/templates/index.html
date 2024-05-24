@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ current_user.username }}!</h1>
+
+<div class="section">
+    <h2>Transactions</h2>
+    <a href="{{ url_for('main.add_transaction') }}" class="btn">Add Transaction</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.category }}</td>
+                <td>{{ transaction.date.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Budgets</h2>
+    <a href="{{ url_for('main.add_budget') }}" class="btn">Add Budget</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for budget in budgets %}
+            <tr>
+                <td>{{ budget.category }}</td>
+                <td>{{ budget.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Savings Goals</h2>
+    <a href="{{ url_for('main.add_savings_goal') }}" class="btn">Add Savings Goal</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Goal</th>
+                <th>Amount</th>
+                <th>Current Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for goal in savings_goals %}
+            <tr>
+                <td>{{ goal.goal }}</td>
+                <td>{{ goal.amount }}</td>
+                <td>{{ goal.current_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
