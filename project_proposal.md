@@ -1,47 +1,61 @@
-# Project Proposal
 
-Use this template to help get you started right away! Once the proposal is complete, please let your mentor know that this is ready to be reviewed.
+Capstone Project Idea: Personal Finance Management System
+Project Overview
+Create a web application that helps users manage their personal finances by tracking income, expenses, and savings goals. The application will allow users to create and manage budgets, visualize their spending habits, and receive insights to help them save more effectively.
 
-## Get Started
+Key Features
+User Authentication: Users can sign up, log in, and manage their accounts securely.
+Income & Expense Tracking: Users can add, edit, and delete income and expense entries.
+Budget Management: Users can create and manage budgets for different categories (e.g., groceries, rent, entertainment).
+Savings Goals: Users can set and track savings goals.
+Visualizations: Interactive charts and graphs to visualize income vs. expenses, spending by category, and progress towards savings goals.
+Reports: Generate monthly, quarterly, and yearly financial reports.
+Notifications: Alerts for overspending or when nearing budget limits.
+Technologies Used
+Python/Flask: Backend framework to handle server-side logic.
+PostgreSQL: Database to store user data, transactions, budgets, and goals.
+SQLAlchemy: ORM to interact with the PostgreSQL database.
+Render: Platform to deploy the web application.
+Jinja: Template engine for rendering HTML pages.
+RESTful APIs: To integrate with third-party financial services (e.g., banks, budgeting tools) for automated data import.
+JavaScript: For front-end interactivity and AJAX calls.
+HTML/CSS: For structuring and styling the web application.
+WTForms: To manage form handling and validation.
+Implementation Steps
+Setup Environment:
 
-|            | Description                                                                                                                                                                                                                                                                                                                                              | Fill in |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Tech Stack | What tech stack will you use for your final project? It is recommended to use the following technologies in this project: Python/Flask, PostgreSQL, SQLAlchemy, Heroku, Jinja, RESTful APIs, JavaScript, HTML, CSS. Depending on your idea, you might end up using WTForms and other technologies discussed in the course.                               |         |
-| Type       | Will this be a website? A mobile app? Something else?                                                                                                                                                                                                                                                                                                    |         |
-| Goal       | What goal will your project be designed to achieve?                                                                                                                                                                                                                                                                                                      |         |
-| Users      | What kind of users will visit your app? In other words, what is the demographic of your users?                                                                                                                                                                                                                                                           |         |
-| Data       | What data do you plan on using? How are you planning on collecting your data? You may have not picked your actual API yet, which is fine, just outline what kind of data you would like it to contain. You are welcome to create your own API and populate it with data. If you are using a Python/Flask stack, you are required to create your own API. |         |
+Set up a Flask project structure.
+Configure PostgreSQL database and SQLAlchemy.
+Set up user authentication (login, registration) with Flask-Login.
+Backend Development:
 
-# Breaking down your project
+Define models for users, transactions, budgets, and goals using SQLAlchemy.
+Create RESTful API endpoints for CRUD operations on transactions, budgets, and goals.
+Implement business logic for tracking spending, budgeting, and savings.
+Frontend Development:
 
-When planning your project, break down your project into smaller tasks, knowing that you may not know everything in advance and that these details might change later. Some common tasks might include:
+Design HTML templates with Jinja for different views (dashboard, transactions, budgets, goals).
+Use CSS for styling and ensuring a responsive design.
+Implement JavaScript for dynamic updates and AJAX calls.
+Visualizations:
 
-- Determining the database schema
-- Sourcing your data
-- Determining user flow(s)
-- Setting up the backend and database
-- Setting up the frontend
-- What functionality will your app include?
-  - User login and sign up
-  - Uploading a user profile picture
+Integrate charting libraries (e.g., Chart.js) to create visual representations of financial data.
+Display charts and graphs on the dashboard for user insights.
+Testing:
 
-Here are a few examples to get you started with. During the proposal stage, you just need to create the tasks. Description and details can be edited at a later time. In addition, more tasks can be added in at a later time.
+Write unit and integration tests for backend logic.
+Perform end-to-end testing to ensure all features work as expected.
+Deployment:
 
-| Task Name                   | Description                                                                                                   | Example                                                           |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| Design Database schema      | Determine the models and database schema required for your project.                                           | [Link](https://github.com/hatchways/sb-capstone-example/issues/1) |
-| Source Your Data            | Determine where your data will come from. You may choose to use an existing API or create your own.           | [Link](https://github.com/hatchways/sb-capstone-example/issues/2) |
-| User Flows                  | Determine user flow(s) - think about what you want a user’s experience to be like as they navigate your site. | [Link](https://github.com/hatchways/sb-capstone-example/issues/3) |
-| Set up backend and database | Configure the environmental variables on your framework of choice for development and set up database.        | [Link](https://github.com/hatchways/sb-capstone-example/issues/4) |
-| Set up frontend             | Set up frontend framework of choice and link it to the backend with a simple API call for example.            | [Link](https://github.com/hatchways/sb-capstone-example/issues/5) |
-| User Authentication         | Fullstack feature - ability to authenticate (login and sign up) as a user                                     | [Link](https://github.com/hatchways/sb-capstone-example/issues/6) |
+Deploy the application on Render.
+Set up continuous deployment for automatic updates.
+Documentation and Final Touches:
 
-## Labeling
-
-Labeling is a great way to separate out your tasks and to track progress. Here’s an [example](https://github.com/hatchways/sb-capstone-example/issues) of a list of issues that have labels associated.
-
-| Label Type    | Description                                                                                                                                                                                                                                                                                                                     | Example                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| Difficulty    | Estimating the difficulty level will be helpful to determine if the project is unique and ready to be showcased as part of your portfolio - having a mix of task difficultlies will be essential.                                                                                                                               | Easy, Medium, Hard           |
-| Type          | If a frontend/backend task is large at scale (for example: more than 100 additional lines or changes), it might be a good idea to separate these tasks out into their own individual task. If a feature is smaller at scale (not more than 10 files changed), labeling it as fullstack would be suitable to review all at once. | Frontend, Backend, Fullstack |
-| Stretch Goals | You can also label certain tasks as stretch goals - as a nice to have, but not mandatory for completing this project.                                                                                                                                                                                                           | Must Have, Stretch Goal      |
+Create a user manual and API documentation.
+Add final touches to the UI for better user experience.
+Stretch Goals
+Integration with Financial APIs: Allow users to import transactions automatically from their bank accounts.
+Mobile-Friendly Design: Optimize the application for mobile devices.
+AI-Based Insights: Provide personalized financial advice using machine learning algorithms.
+Multi-Currency Support: Allow users to manage finances in different currencies.
+This project will demonstrate your ability to integrate multiple technologies, manage a complex codebase, and deliver a full-stack web application.
