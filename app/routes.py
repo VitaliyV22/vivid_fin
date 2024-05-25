@@ -9,6 +9,9 @@ from flask import Blueprint
 bp = Blueprint('main', __name__)
 
 @bp.route('/')
+def homepage():
+    return render_template('homepage.html')
+
 @bp.route('/index')
 @login_required
 def index():
@@ -37,7 +40,8 @@ def login():
 @bp.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('base.index'))
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
