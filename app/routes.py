@@ -41,7 +41,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('base.index'))
+    return redirect(url_for('main.homepage'))
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
