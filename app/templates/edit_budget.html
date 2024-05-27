@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Budget{% endblock %}
+
+{% block content %}
+<h1>Edit Budget</h1>
+<form action="{{ url_for('main.edit_budget', budget_id=budget_id) }}" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.category.label }}<br>
+        {{ form.category(size=32) }}<br>
+        {% for error in form.category.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.amount.label }}<br>
+        {{ form.amount(size=32) }}<br>
+        {% for error in form.amount.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </p>
+    <p><input type="submit" value="Update Budget" class="btn btn-primary"></p>
+</form>
+{% endblock %}

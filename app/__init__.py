@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from config import Config
 
+
 db = SQLAlchemy()
 login = LoginManager()
 csrf = CSRFProtect()
@@ -17,6 +18,6 @@ def create_app():
     csrf.init_app(app)
     
     from .routes import bp as main_bp
-    app.register_blueprint(main_bp)
+    app.register_blueprint(main_bp, url_prefix='/')
     
     return app

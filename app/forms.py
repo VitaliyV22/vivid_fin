@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, FloatField, IntegerField, DecimalField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange
 from .models import User
 
@@ -31,6 +31,23 @@ class TransactionForm(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     submit = SubmitField('Add Transaction')
 
+
+class EditTransactionForm(FlaskForm):
+    amount = DecimalField('Amount', validators=[DataRequired(), NumberRange(min=0)])
+    category = StringField('Category', validators=[DataRequired()])
+    submit = SubmitField('Update Transaction')
+    
+class EditBudgetForm(FlaskForm):
+    category = StringField('Category', validators=[DataRequired()])
+    amount = DecimalField('Amount', validators=[DataRequired(), NumberRange(min=0)])
+    submit = SubmitField('Update Budget')
+    
+class EditSavingsGoalForm(FlaskForm):
+    goal = StringField('Goal', validators=[DataRequired()])
+    amount = DecimalField('Amount', validators=[DataRequired(), NumberRange(min=0)])
+    current_amount = DecimalField('Current Amount', validators=[DataRequired(), NumberRange(min=0)])
+    submit = SubmitField('Update Savings Goal')
+    
 class BudgetForm(FlaskForm):
     category = StringField('Category', validators=[DataRequired()])
     amount = FloatField('Amount', validators=[DataRequired(), NumberRange(min=0)])

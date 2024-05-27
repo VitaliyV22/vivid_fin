@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from . import db
 from .models import User, Transaction, Budget, SavingsGoal
-from .forms import LoginForm, RegistrationForm, TransactionForm, BudgetForm, SavingsGoalForm
+from .forms import LoginForm, RegistrationForm, TransactionForm, BudgetForm, SavingsGoalForm,EditTransactionForm,EditBudgetForm, EditSavingsGoalForm
 from werkzeug.urls import url_parse
 from flask import Blueprint
 
@@ -18,7 +18,9 @@ def index():
     transactions = Transaction.query.filter_by(user_id=current_user.id).all()
     budgets = Budget.query.filter_by(user_id=current_user.id).all()
     savings_goals = SavingsGoal.query.filter_by(user_id=current_user.id).all()
-    return render_template('index.html', transactions=transactions, budgets=budgets, savings_goals=savings_goals)
+    total_transactions_amount = sum(transaction.amount for transaction in transactions)
+    
+    return render_template('index.html', transactions=transactions, budgets=budgets, savings_goals=savings_goals, total_transactions_amount=total_transactions_amount)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -69,6 +71,24 @@ def add_transaction():
         return redirect(url_for('main.index'))
     return render_template('add_transaction.html', title='Add Transaction', form=form)
 
+@bp.route('/edit_transaction/<int:transaction_id>', methods=['GET', 'POST'])
+@login_required
+def edit_transaction(transaction_id):
+    transaction = Transaction.query.get_or_404(transaction_id)
+    if transaction.user_id != current_user.id:
+        flash('You do not have permission to edit this transaction.')
+        return redirect(url_for('main.index'))
+
+    form = EditTransactionForm(obj=transaction)
+    if form.validate_on_submit():
+        transaction.amount = form.amount.data
+        transaction.category = form.category.data
+        db.session.commit()
+        flash('Transaction updated successfully.')
+        return redirect(url_for('main.index'))
+    
+    return render_template('edit_transaction.html', title='Edit Transaction', form=form, transaction_id=transaction_id)
+
 @bp.route('/add_budget', methods=['GET', 'POST'])
 @login_required
 def add_budget():
@@ -117,6 +137,24 @@ def delete_budget(budget_id):
     flash('Budget deleted successfully')
     return redirect(url_for('main.index'))
 
+@bp.route('/edit_budget/<int:budget_id>', methods=['GET', 'POST'])
+@login_required
+def edit_budget(budget_id):
+    budget = Budget.query.get_or_404(budget_id)
+    if budget.user_id != current_user.id:
+        flash('You do not have permission to edit this budget.')
+        return redirect(url_for('main.index'))
+
+    form = EditBudgetForm(obj=budget)
+    if form.validate_on_submit():
+        budget.category = form.category.data
+        budget.amount = form.amount.data
+        db.session.commit()
+        flash('Budget updated successfully.')
+        return redirect(url_for('main.index'))
+    
+    return render_template('edit_budget.html', title='Edit Budget', form=form, budget_id=budget_id)
+
 @bp.route('/delete_savings_goal/<int:savings_goal_id>', methods=['POST'])
 @login_required
 def delete_savings_goal(savings_goal_id):
@@ -128,3 +166,22 @@ def delete_savings_goal(savings_goal_id):
     db.session.commit()
     flash('Savings goal deleted successfully')
     return redirect(url_for('main.index'))
+
+@bp.route('/edit_savings_goal/<int:savings_goal_id>', methods=['GET', 'POST'])
+@login_required
+def edit_savings_goal(savings_goal_id):
+    savings_goal = SavingsGoal.query.get_or_404(savings_goal_id)
+    if savings_goal.user_id != current_user.id:
+        flash('You do not have permission to edit this savings goal.')
+        return redirect(url_for('main.index'))
+
+    form = EditSavingsGoalForm(obj=savings_goal)
+    if form.validate_on_submit():
+        savings_goal.goal = form.goal.data
+        savings_goal.amount = form.amount.data
+        savings_goal.current_amount = form.current_amount.data
+        db.session.commit()
+        flash('Savings goal updated successfully.')
+        return redirect(url_for('main.index'))
+    
+    return render_template('edit_savings_goal.html', title='Edit Savings Goal', form=form, savings_goal_id=savings_goal_id)
