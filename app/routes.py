@@ -185,3 +185,4 @@ def edit_savings_goal(savings_goal_id):
         return redirect(url_for('main.index'))
     
     return render_template('edit_savings_goal.html', title='Edit Savings Goal', form=form, savings_goal_id=savings_goal_id)
+

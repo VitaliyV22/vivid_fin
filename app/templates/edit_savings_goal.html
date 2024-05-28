@@ -3,12 +3,12 @@
 {% block title %}Edit Savings Goal{% endblock %}
 
 {% block content %}
-<h1>Edit Savings Goal</h1>
+<h1 class="h1edit">Edit Savings Goal</h1>
 <form action="{{ url_for('main.edit_savings_goal', savings_goal_id=savings_goal_id) }}" method="post">
     {{ form.hidden_tag() }}
     <p>
         {{ form.goal.label }}<br>
-        {{ form.goal(size=32) }}<br>
+        {{ form.goal(class="editform") }}<br>
         {% for error in form.goal.errors %}
             <span class="error">{{ error }}</span>
         {% endfor %}

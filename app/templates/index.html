@@ -71,7 +71,7 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <input type="submit" value="Delete" class=" btn-danger ">
                     </form>
-                    <a href="{{ url_for('main.edit_budget', budget_id=budget.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="{{ url_for('main.edit_budget', budget_id=budget.id) }}" class="btn-sm">Edit</a>
                 </td>
             </tr>
             {% endfor %}
@@ -113,7 +113,7 @@
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <input type="submit" value="Delete" class=" btn-danger ">
                     </form>
-                    <a href="{{ url_for('main.edit_savings_goal', savings_goal_id=goal.id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                    <a href="{{ url_for('main.edit_savings_goal', savings_goal_id=goal.id) }}" class="btn-sm">Edit</a>
                 </td>
             </tr>
             {% endfor %}

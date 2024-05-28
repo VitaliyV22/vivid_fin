@@ -3,19 +3,19 @@
 {% block title %}Edit Transaction{% endblock %}
 
 {% block content %}
-<h1>Edit Transaction</h1>
+<h1 class="h1edit">Edit Transaction</h1>
 <form action="{{ url_for('main.edit_transaction', transaction_id=transaction_id) }}" method="post">
     {{ form.hidden_tag() }}
     <p>
         {{ form.amount.label }}<br>
-        {{ form.amount(size=32) }}<br>
+        {{ form.amount(class="editform") }}<br>
         {% for error in form.amount.errors %}
             <span class="error">{{ error }}</span>
         {% endfor %}
     </p>
     <p>
         {{ form.category.label }}<br>
-        {{ form.category(size=32) }}<br>
+        {{ form.category(class="editform") }}<br>
         {% for error in form.category.errors %}
             <span class="error">{{ error }}</span>
         {% endfor %}
