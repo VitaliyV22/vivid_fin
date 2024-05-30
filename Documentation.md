@@ -1,3 +1,6 @@
+# Live
+https://capstone1-38786675132e.herokuapp.com/
+
 # VividFin Documentation
 
 VividFin is a web application designed to help users manage their finances effectively. It allows users to track their transactions, set budgets, and create savings goals. This documentation provides an overview of the features, installation instructions, and usage guidelines for VividFin.
