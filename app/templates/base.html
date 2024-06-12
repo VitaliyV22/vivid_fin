@@ -5,28 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Finance App{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  
 </head>
 <body>
     <header>
         <nav>
-           
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for('main.index') }}">Home</a>
-                <a href="{{ url_for('main.add_transaction') }}">Add Transaction</a>
-                <a href="{{ url_for('main.add_budget') }}">Add Budget</a>
-                <a href="{{ url_for('main.add_savings_goal') }}">Add Savings Goal</a>
-                <a href="{{ url_for('main.logout') }}">Logout</a>
+                <a href="{{ url_for('main.index') }}">Home</a>
+                <a href="{{ url_for('transaction.add_transaction') }}">Add Transaction</a>
+                <a href="{{ url_for('budget.add_budget') }}">Add Budget</a>
+                <a href="{{ url_for('savings_goal.add_savings_goal') }}">Add Savings Goal</a>
+                <a href="{{ url_for('user.logout') }}">Logout</a>
             {% else %}
-                <a href="{{ url_for('main.login') }}">Login</a>
-                <a href="{{ url_for('main.register') }}">Register</a>
+                <a href="{{ url_for('user.login') }}">Login</a>
+                <a href="{{ url_for('user.register') }}">Register</a>
             {% endif %}
         </nav>
     </header>
     <main>
         {% block content %}{% endblock %}
     </main>
-  
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

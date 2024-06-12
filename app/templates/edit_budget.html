@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="h1edit">Edit Budget</h1>
-<form  action="{{ url_for('main.edit_budget', budget_id=budget_id) }}" method="post">
+<form  action="{{ url_for('budget.edit_budget', budget_id=budget_id) }}" method="post">
     {{ form.hidden_tag() }}
     <p >
         {{ form.category.label }}<br>

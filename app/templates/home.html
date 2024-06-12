@@ -26,7 +26,7 @@
     {% endfor %}
 </ul>
 
-<a href="{{ url_for('main.add_transaction') }}">Add Transaction</a>
-<a href="{{ url_for('main.add_budget') }}">Add Budget</a>
-<a href="{{ url_for('main.add_savings_goal') }}">Add Savings Goal</a>
+<a href="{{ url_for('transaction.add_transaction') }}">Add Transaction</a>
+<a href="{{ url_for('budget.add_budget') }}">Add Budget</a>
+<a href="{{ url_for('savings.add_savings_goal') }}">Add Savings Goal</a>
 {% endblock %}

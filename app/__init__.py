@@ -17,7 +17,15 @@ def create_app():
     login.init_app(app)
     csrf.init_app(app)
     
-    from .routes import bp as main_bp
+    from .routes import main_bp
+    from .user_routes import user_bp
+    from .transaction_routes import transaction_bp
+    from .budget_routes import budget_bp
+    from .savings_goal_routes import savings_goal_bp
     app.register_blueprint(main_bp, url_prefix='/')
+    app.register_blueprint(user_bp, url_prefix='/users')
+    app.register_blueprint(transaction_bp, url_prefix='/transactions')
+    app.register_blueprint(budget_bp, url_prefix='/budgets')
+    app.register_blueprint(savings_goal_bp, url_prefix='/savings_goals')
     
     return app

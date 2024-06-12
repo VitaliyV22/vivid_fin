@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="h1edit">Add Transaction</h1>
-<form action="{{ url_for('main.add_transaction') }}" method="post">
+<form action="{{ url_for('transaction.add_transaction') }}" method="post">
     {{ form.hidden_tag() }}
     <div>
         {{ form.amount.label }}
