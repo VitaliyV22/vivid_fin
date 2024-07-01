@@ -3,7 +3,10 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h1>Welcome, {{ current_user.username }}!</h1>
+
+
+<h1 class="p-6 text-5xl font-extrabold dark:text-white">Welcome, {{ current_user.username }}!</h1>
+
 
 <div class="section">
     <div class="flex-container">
@@ -109,5 +112,7 @@
             {% endfor %}
         </tbody>
     </table>
+    
 </div>
+
 {% endblock %}
