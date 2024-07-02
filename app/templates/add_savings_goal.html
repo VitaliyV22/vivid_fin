@@ -3,25 +3,28 @@
 {% block title %}Add Savings Goal{% endblock %}
 
 {% block content %}
-<h1 class="h1edit">Add Savings Goal</h1>
-<form action="{{ url_for('savings_goal.add_savings_goal') }}" method="post">
-    {{ form.hidden_tag() }}
-    <div>
-        {{ form.goal.label }}
-        {{ form.goal(class="editform") }}
-        {% for error in form.goal.errors %}
-            <span class="error">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div>
-        {{ form.amount.label }}
-        {{ form.amount(class="editform") }}
-        {% for error in form.amount.errors %}
-            <span class="error">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div>
-        <p> {{ form.submit(class="addButton") }}</p>
-    </div>
-</form>
+<div class="max-w-sm h-screen mt-5">
+    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-white">Add Savings Goal</h1>
+    <form action="{{ url_for('savings_goal.add_savings_goal') }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-1">
+            {{ form.goal.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}
+            {{ form.goal(class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500") }}
+            {% for error in form.goal.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-1">
+            {{ form.amount.label(class_="block mb-2 text-sm font-medium text-gray-900 dark:text-white") }}
+            {{ form.amount(class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500") }}
+            {% for error in form.amount.errors %}
+                <span class="error">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-1">
+            <p> {{ form.submit(class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800") }}</p>
+        </div>
+    </form>
+</div>
+
 {% endblock %}
