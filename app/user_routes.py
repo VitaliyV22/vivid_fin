@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from .models import User
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, ChangePasswordForm
 from . import db
 from werkzeug.urls import url_parse
 
@@ -43,3 +43,24 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('user.login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@user_bp.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if not current_user.check_password(form.old_password.data):
+            flash('Current password is incorrect', 'danger')
+            return redirect(url_for('user.change_password'))
+        
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash('Your password has been updated!', 'success')
+        return redirect(url_for('main.index'))
+    
+    return render_template('change_password.html', title='Change Password', form=form)
+
+@user_bp.route('/settings', methods=['GET', 'POST'])
+def settings():
+    return render_template('settings.html', title='Settings')
+

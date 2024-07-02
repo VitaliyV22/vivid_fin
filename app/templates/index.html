@@ -1,118 +1,156 @@
-{% extends 'base.html' %}
-
-{% block title %}Dashboard{% endblock %}
-
-{% block content %}
-
-
-<h1 class="p-6 text-5xl font-extrabold dark:text-white">Welcome, {{ current_user.username }}!</h1>
-
-
-<div class="section">
-    <div class="flex-container">
-        <h2>Transactions</h2>
-        <a href="{{ url_for('transaction.add_transaction') }}" class="btn">Add Transaction</a>
-    </div>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transaction in transactions %}
-            <tr>
-                <td>${{ transaction.amount }}</td>
-                <td>{{ transaction.category }}</td>
-                <td>{{ transaction.date.strftime('%Y-%m-%d') }}</td>
-                <td>
-                    <form action="{{ url_for('transaction.delete_transaction', transaction_id=transaction.id) }}" method="post" style="display:inline;">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
-                    <a href="{{ url_for('transaction.edit_transaction', transaction_id=transaction.id) }}" class="btn btn-sm">Edit</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <th>Total: ${{ total_transactions_amount }}</th>
-        </tfoot>
-    </table>
+{% extends 'base.html' %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<div>
+  <h1
+    class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white"
+  >
+    Welcome,<span class="text-blue-600 dark:text-blue-500"
+      >{{ current_user.username }}!</span
+    >
+  </h1>
 </div>
 
-<div class="section">
-    <div class="flex-container">
-        <h2>Budgets</h2>
+<div class="relative overflow-x-auto shadow-lg sm:rounded-lg">
+  <h1></h1>
+  <div class="p-5 flex-container">
+    <a class="text-4xl font-bold dark:text-white">Recent Transactions</a>
+    <a  class="btn">Add Transaction</a>
+  </div>
+
+  <table
+    class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100"
+  >
+    <thead
+      class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white"
+    >
+      <tr class="text-1xl">
+        <th scope="col" class="px-6 py-3">Category</th>
+        <th scope="col" class="px-6 py-3 bg-blue-500">Date</th>
+        <th scope="col" class="px-6 py-3">Amount</th>
+        <th scope="col" class="px-6 py-3 bg-blue-500">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="">
+      {% for transaction in transactions %}
+      <tr class="bg-blue-600 border-b border-blue-400">
+        <td class="px-6 py-4">{{ transaction.category }}</td>
+        <td class="px-6 py-4 bg-blue-500">
+          {{ transaction.date.strftime('%Y-%m-%d') }}
+        </td>
+        <td class="px-6 py-4">${{ transaction.amount }}</td>
+        <td class="px-6 py-3 bg-blue-500">
+          <form
+            action="{{ url_for('transaction.delete_transaction', transaction_id=transaction.id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input
+              type="submit"
+              value="Delete"
+              class="cursor-pointer focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+            />
+          </form>
+          <a
+            href="{{ url_for('transaction.edit_transaction', transaction_id=transaction.id) }}"
+            class="font-medium text-white hover:underline cursor-pointer"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tr class="text-1xl bg-blue-500 text-2xl">
+      <th scope="col" class="px-6 py-3">Total</th>
+      <th scope="col" class="px-6 py-3 bg-blue-500"></th>
+      <th scope="col" class="px-6 py-3">${{ total_transactions_amount }}</th>
+      <th scope="col" class="px-6 py-3 bg-blue-500"></th>
+    </tr>
+  </table>
+</div>
+<!-- -----------------------------------------------------------------------------------------  -->
+<div class="relative overflow-x-auto shadow-lg sm:rounded-lg">
+    <div class="p-5 flex-container">
+        <a class="text-4xl font-bold dark:text-white">Budget</a>
         <a href="{{ url_for('budget.add_budget') }}" class="btn">Add Budget</a>
-    </div>
-   
-    <table>
-        <thead>
-            <tr>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for budget in budgets %}
-            <tr>
-                <td>${{ budget.amount }}</td>
-                <td>{{ budget.category }}</td>
-                <td>
-                    <form action="{{ url_for('budget.delete_budget', budget_id=budget.id) }}" method="post" style="display:inline;">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
-                    <a href="{{ url_for('budget.edit_budget', budget_id=budget.id) }}" class="btn btn-sm">Edit</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <th>Total: ${{ total_transactions_amount }}</th>
-        </tfoot>
-    </table>
-</div>
+      </div>
 
-<div class="section">
-    <div class="flex-container">
-        <h2>Savings Goals</h2>
+
+  <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100 ">
+    <thead  class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white">
+      <tr class="text-1xl">
+        <th scope="col" class="px-6 py-3 ">Amount</th>
+        <th scope="col" class="px-6 py-3 bg-blue-500">Category</th>
+        <th scope="col" class="px-6 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for budget in budgets %}
+      <tr class="bg-blue-600 border-b border-blue-400">
+        <td class="px-6 py-4">${{ budget.amount }}</td>
+        <td class="py-3 bg-blue-500" >{{ budget.category }}</td>
+        <td class="px-6 py-4">
+          <form
+            action="{{ url_for('budget.delete_budget', budget_id=budget.id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input  type="submit" value="Delete" class="cursor-pointer focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" />
+          </form>
+          <a
+            href="{{ url_for('budget.edit_budget', budget_id=budget.id) }}"
+            class="font-medium text-white hover:underline cursor-pointer"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+ 
+  </table>
+</div>
+<!-- -------------------------------------------------------------------------------------------- -->
+
+<div class="relative overflow-x-auto shadow-lg sm:rounded-lg">
+    <div class="p-5 flex-container">
+        <a class="text-4xl font-bold dark:text-white">Savings</a>
         <a href="{{ url_for('savings_goal.add_savings_goal') }}" class="btn">Add Savings Goal</a>
-    </div>
-   
-    <table>
-        <thead>
-            <tr>
-                <th>Goal</th>
-                <th>Amount</th>
-                <th>Current Amount Saved</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for goal in savings_goals %}
-            <tr>
-                <td>{{ goal.goal }}</td>
-                <td>${{ goal.amount }}</td>
-                <td>${{ goal.current_amount }}</td>
-                <td>
-                    <form action="{{ url_for('savings_goal.delete_savings_goal', savings_goal_id=goal.id) }}" method="post" style="display:inline;">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                    </form>
-                    <a href="{{ url_for('savings_goal.edit_savings_goal', savings_goal_id=goal.id) }}" class="btn btn-sm">Edit</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-</div>
+      </div>
 
-{% endblock %}
+      <table class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100 ">
+        <thead  class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white">
+            <tr class="text-1xl">
+        <th class="px-6 py-3">Goal</th>
+        <th class="px-6 py-3 bg-blue-500">Amount</th>
+        <th class="px-6 py-3">Current Amount Saved</th>
+        <th class="px-6 py-3 bg-blue-500">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for goal in savings_goals %}
+      <tr class="bg-blue-600 border-b border-blue-400">
+        <td class="px-6 py-4">{{ goal.goal }}</td>
+        <td class="py-3 bg-blue-500">${{ goal.amount }}</td>
+        <td class="px-6 py-4">${{ goal.current_amount }}</td>
+        <td class="px-6 py-4 bg-blue-500 ">
+          <form
+            action="{{ url_for('savings_goal.delete_savings_goal', savings_goal_id=goal.id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input type="submit" value="Delete" class="cursor-pointer focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"" />
+          </form>
+          <a
+            href="{{ url_for('savings_goal.edit_savings_goal', savings_goal_id=goal.id) }}"
+            class="font-medium text-white hover:underline cursor-pointer"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+ {% endblock %}
