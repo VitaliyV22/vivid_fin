@@ -48,3 +48,9 @@ def delete_savings_goal(savings_goal_id):
     db.session.commit()
     flash('Savings goal deleted successfully')
     return redirect(url_for('main.index'))
+
+@savings_goal_bp.route('/', methods=['GET', 'POST'])
+@login_required
+def savings():
+    savings_goals = SavingsGoal.query.filter_by(user_id=current_user.id).all()
+    return render_template('savings.html', title='Add Savings Goal', savings_goals=savings_goals)

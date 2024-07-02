@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Budget{% endblock %}
+
+{%block content %}
+<div
+class="relative overflow-x-auto shadow-lg sm:rounded-lg border-2 bg-green-100 border-black"
+>
+<div class="py-5 items-center justify-start gap-5 lg:flex">
+  <div class="lg:flex items-center gap-5 ">
+    <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Budget</h1>
+    <a
+    href="{{ url_for('budget.add_budget') }}"
+    class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >Add Budget</a
+  >
+  </div>
+</div>
+
+<table
+  class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100 {% if budgets|length == 0 %}hidden{% endif %} "
+>
+  <thead
+    class="text-xs text-white uppercase bg-green-600 border-b border-green-400 dark:text-white"
+  >
+    <tr class="text-1xl">
+      <th scope="col" class="px-6 py-3">Amount</th>
+      <th scope="col" class="px-6 py-3 bg-green-500">Category</th>
+      <th scope="col" class="px-6 py-3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for budget in budgets %}
+    <tr class="bg-green-600 border-b border-green-400">
+      <td class="px-6 py-4">${{ budget.amount }}</td>
+      <td class="px-6 py-4 bg-green-500">{{ budget.category }}</td>
+      <td class="px-6 py-4">
+        <form
+          action="{{ url_for('budget.delete_budget', budget_id=budget.id) }}"
+          method="post"
+          style="display: inline"
+        >
+          <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrf_token() }}"
+          />
+          <input
+            type="submit"
+            value="Delete"
+            class="font-medium text-white hover:underline cursor-pointer"
+          />
+        </form>
+        <a
+          href="{{ url_for('budget.edit_budget', budget_id=budget.id) }}"
+          class="font-medium text-white hover:underline cursor-pointer"
+          >Edit</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+{% endblock %}

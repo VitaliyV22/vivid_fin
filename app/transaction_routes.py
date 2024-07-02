@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for,request
 from flask_login import current_user, login_required
 from .models import Transaction
 from .forms import TransactionForm, EditTransactionForm
@@ -15,7 +15,7 @@ def add_transaction():
         db.session.add(transaction)
         db.session.commit()
         flash('Transaction added successfully')
-        return redirect(url_for('main.index'))
+        return redirect(request.referrer or url_for('main.index'))
     return render_template('add_transaction.html', title='Add Transaction', form=form)
 
 @transaction_bp.route('/edit_transaction/<int:transaction_id>', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def edit_transaction(transaction_id):
         transaction.category = form.category.data
         db.session.commit()
         flash('Transaction updated successfully.')
-        return redirect(url_for('main.index'))
+        return redirect(request.referrer or url_for('main.index'))
     
     return render_template('edit_transaction.html', title='Edit Transaction', form=form, transaction_id=transaction_id)
 
@@ -46,4 +46,12 @@ def delete_transaction(transaction_id):
     db.session.delete(transaction)
     db.session.commit()
     flash('Transaction deleted successfully')
-    return redirect(url_for('main.index'))
+    return redirect(request.referrer or url_for('main.index'))
+
+
+@transaction_bp.route('/', methods=['GET','POST'])
+@login_required
+def transactions():
+    transactions = Transaction.query.filter_by(user_id=current_user.id).all()
+    total_transactions_amount = sum(transaction.amount for transaction in transactions)
+    return render_template('transactions.html',title='Transactions', transactions=transactions,total_transactions_amount=total_transactions_amount)

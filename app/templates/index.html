@@ -4,7 +4,7 @@ content %}
 <div class="flex flex-col gap-5">
   <div>
     <h1
-      class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white"
+      class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-white"
     >
       Welcome,<span class="text-blue-600 dark:text-blue-500"
         >{{ current_user.username }}!</span
@@ -13,19 +13,22 @@ content %}
   </div>
 
   <div
-    class="relative overflow-x-auto shadow-lg sm:rounded-lg border-2 border-black bg-blue-50"
+    class="relative overflow-x-auto overflow-y-auto max-height-sm sm:rounded-lg border-2 border-black bg-blue-50"
   >
-    <div class="py-5 items-center justify-start gap-5 lg:flex">
-      <div>
-        <h1 class="text-4xl font-bold dark:text-white">Recent Transactions</h1>
+    <div class="py-5 items-center justify-between gap-5 lg:flex">
+      <div class="lg:flex items-center gap-5 ">
+        <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Recent Transactions</h1>
+        <div>
+          <a 
+            href="{{ url_for('transaction.add_transaction') }}"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Add Transaction</a
+          >
+        </div>
+       
+        
       </div>
-      <div>
-        <a
-          href="{{ url_for('transaction.add_transaction') }}"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >Add Transaction</a
-        >
-      </div>
+    
     </div>
 
     <table
@@ -42,7 +45,7 @@ content %}
         </tr>
       </thead>
       <tbody class="">
-        {% for transaction in transactions %}
+        {% for transaction in transactions[:5] %}
         <tr class="bg-blue-600 border-b border-blue-400">
           <td class="px-6 py-4">{{ transaction.category }}</td>
           <td class="px-6 py-4 bg-blue-500">
@@ -88,15 +91,13 @@ content %}
     class="relative overflow-x-auto shadow-lg sm:rounded-lg border-2 bg-green-100 border-black"
   >
     <div class="py-5 items-center justify-start gap-5 lg:flex">
-      <div>
-        <h1 class="text-4xl font-bold dark:text-white">Budget</h1>
-      </div>
-      <div>
+      <div class="lg:flex items-center gap-5 ">
+        <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Budget</h1>
         <a
-          href="{{ url_for('budget.add_budget') }}"
-          class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >Add Budget</a
-        >
+        href="{{ url_for('budget.add_budget') }}"
+        class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >Add Budget</a
+      >
       </div>
     </div>
 
@@ -151,16 +152,15 @@ content %}
     class="relative overflow-x-auto shadow-lg sm:rounded-lg bg-purple-200 border-2 border-black"
   >
     <div class="py-5 items-center justify-start gap-5 lg:flex">
-      <div>
-        <h1 class="text-4xl font-bold dark:text-white">Savings</h1>
-      </div>
-      <div>
+      <div class="lg:flex items-center gap-5 ">
+        <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Savings</h1>
         <a
           href="{{ url_for('savings_goal.add_savings_goal') }}"
           class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
           >Add Savings</a
         >
       </div>
+      
     </div>
 
     <table

@@ -17,3 +17,5 @@ def index():
     total_transactions_amount = sum(transaction.amount for transaction in transactions)
     
     return render_template('index.html', transactions=transactions, budgets=budgets, savings_goals=savings_goals, total_transactions_amount=total_transactions_amount)
+
+

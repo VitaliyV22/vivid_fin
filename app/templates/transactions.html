@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block title %}Transaction{% endblock %} {%
+    block content %}
+ 
+    <div
+    class="relative overflow-x-auto overflow-y-auto max-height-sm sm:rounded-lg border-2 border-black bg-blue-50"
+  >
+    <div class="py-5 items-center justify-between gap-5 lg:flex">
+      <div class="lg:flex items-center gap-5 ">
+        <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Transactions</h1>
+        <div>
+          <a 
+            href="{{ url_for('transaction.add_transaction') }}"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Add Transaction</a
+          >
+        </div>
+       
+      </div>
+    
+    </div>
+
+    <table
+      class="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100 "
+    >
+      <thead
+        class="text-xs text-white uppercase bg-blue-600 border-b border-blue-400 dark:text-white"
+      >
+        <tr class="text-1xl ">
+          <th scope="col" class="px-6 py-3">Category</th>
+          <th scope="col" class="px-6 py-3 bg-blue-500 ">Date</th>
+          <th scope="col" class="px-6 py-3">Amount</th>
+          <th scope="col" class="px-6 py-3 bg-blue-500">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="">
+        {% for transaction in transactions %}
+        <tr class="bg-blue-600 border-b border-blue-400">
+          <td class="px-6 py-4">{{ transaction.category }}</td>
+          <td class="px-6 py-4 bg-blue-500">
+            {{ transaction.date.strftime('%Y-%m-%d') }}
+          </td>
+          <td class="px-6 py-4">${{ transaction.amount }}</td>
+          <td class="px-6 py-4 bg-blue-500">
+            <form
+              action="{{ url_for('transaction.delete_transaction', transaction_id=transaction.id) }}"
+              method="post"
+              style="display: inline"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <input
+                type="submit"
+                value="Delete"
+                class="font-medium text-white hover:underline cursor-pointer"
+              />
+            </form>
+            <a
+              href="{{ url_for('transaction.edit_transaction', transaction_id=transaction.id) }}"
+              class="font-medium text-white hover:underline cursor-pointer"
+              >Edit</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tr class="text-1xl bg-blue-500 text-2xl">
+        <th scope="col" class="px-6 py-3">Total</th>
+        <th scope="col" class="px-6 py-3 bg-blue-500"></th>
+        <th scope="col" class="px-6 py-3">${{ total_transactions_amount }}</th>
+        <th scope="col" class="px-6 py-3 bg-blue-500"></th>
+      </tr>
+    </table>
+  </div>
+    
+    
+    
+    {% endblock %}
+    

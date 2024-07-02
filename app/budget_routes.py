@@ -47,3 +47,10 @@ def delete_budget(budget_id):
     db.session.commit()
     flash('Budget deleted successfully')
     return redirect(url_for('main.index'))
+
+
+@budget_bp.route('/', methods=['GET', 'POST'])
+@login_required
+def budget():
+    budgets = Budget.query.filter_by(user_id=current_user.id).all()
+    return render_template('budget.html', title='Budget', budgets=budgets, )

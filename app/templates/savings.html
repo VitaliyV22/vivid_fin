@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Savings{% endblock %}
+
+{%block content %}
+
+<div
+    class="relative overflow-x-auto shadow-lg sm:rounded-lg bg-purple-200 border-2 border-black"
+  >
+    <div class="py-5 items-center justify-start gap-5 lg:flex">
+      <div class="lg:flex items-center gap-5 ">
+        <h1 class="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-4xl font-bold dark:text-white">Savings</h1>
+        <a
+          href="{{ url_for('savings_goal.add_savings_goal') }}"
+          class="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+          >Add Savings</a
+        >
+      </div>
+      
+    </div>
+
+    <table
+      class="w-full text-sm text-left rtl:text-right text-purple-100 dark:text-purple-100 {% if savings_goals|length == 0 %}hidden{% endif %} "
+    >
+      <thead
+        class="text-xs text-white uppercase bg-purple-600 border-b border-purple-400 dark:text-white"
+      >
+        <tr class="text-1xl">
+          <th class="px-6 py-3">Goal</th>
+          <th class="px-6 py-3 bg-purple-500">Amount</th>
+          <th class="px-6 py-3">Current Amount Saved</th>
+          <th class="px-6 py-3 bg-purple-500">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for goal in savings_goals %}
+        <tr class="bg-purple-600 border-b border-purple-400">
+          <td class="px-6 py-4 ">{{ goal.goal }}</td>
+          <td class="py-6 py-4 bg-purple-500">${{ goal.amount }}</td>
+          <td class="px-6 py-4">${{ goal.current_amount }}</td>
+          <td class="px-6 py-4 bg-purple-500">
+            <form
+              action="{{ url_for('savings_goal.delete_savings_goal', savings_goal_id=goal.id) }}"
+              method="post"
+              style="display: inline"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <input
+                type="submit"
+                value="Delete"
+                class="cursor-pointer font-medium text-white hover:bg-red-600 "
+
+              />
+            </form>
+            <a
+              href="{{ url_for('savings_goal.edit_savings_goal', savings_goal_id=goal.id) }}"
+              class="font-medium text-white hover:underline cursor-pointer"
+              >Edit</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
