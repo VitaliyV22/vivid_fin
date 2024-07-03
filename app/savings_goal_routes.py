@@ -15,7 +15,7 @@ def add_savings_goal():
         db.session.add(savings_goal)
         db.session.commit()
         flash('Savings Goal added successfully')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('savings.html'))
     return render_template('add_savings_goal.html', title='Add Savings Goal', form=form)
 
 @savings_goal_bp.route('/edit_savings_goal/<int:savings_goal_id>', methods=['GET', 'POST'])
@@ -24,7 +24,7 @@ def edit_savings_goal(savings_goal_id):
     savings_goal = SavingsGoal.query.get_or_404(savings_goal_id)
     if savings_goal.user_id != current_user.id:
         flash('You do not have permission to edit this savings goal.')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('savings.html'))
 
     form = EditSavingsGoalForm(obj=savings_goal)
     if form.validate_on_submit():
@@ -33,7 +33,7 @@ def edit_savings_goal(savings_goal_id):
         savings_goal.current_amount = form.current_amount.data
         db.session.commit()
         flash('Savings goal updated successfully.')
-        return redirect(url_for('main.index'))
+        return redirect(url_for('savings.html'))
     
     return render_template('edit_savings_goal.html', title='Edit Savings Goal', form=form, savings_goal_id=savings_goal_id)
 
@@ -47,7 +47,7 @@ def delete_savings_goal(savings_goal_id):
     db.session.delete(savings_goal)
     db.session.commit()
     flash('Savings goal deleted successfully')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('savings.html'))
 
 @savings_goal_bp.route('/', methods=['GET', 'POST'])
 @login_required

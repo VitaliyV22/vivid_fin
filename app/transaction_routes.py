@@ -15,7 +15,7 @@ def add_transaction():
         db.session.add(transaction)
         db.session.commit()
         flash('Transaction added successfully')
-        return redirect(request.referrer or url_for('main.index'))
+        return redirect(url_for('transactions.html'))
     return render_template('add_transaction.html', title='Add Transaction', form=form)
 
 @transaction_bp.route('/edit_transaction/<int:transaction_id>', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def edit_transaction(transaction_id):
         transaction.category = form.category.data
         db.session.commit()
         flash('Transaction updated successfully.')
-        return redirect(request.referrer or url_for('transactions.html'))
+        return redirect(url_for('transactions.html'))
     
     return render_template('edit_transaction.html', title='Edit Transaction', form=form, transaction_id=transaction_id)
 
@@ -46,7 +46,7 @@ def delete_transaction(transaction_id):
     db.session.delete(transaction)
     db.session.commit()
     flash('Transaction deleted successfully')
-    return redirect(request.referrer or url_for('main.index'))
+    return redirect(url_for('transactions.html'))
 
 
 @transaction_bp.route('/', methods=['GET','POST'])
