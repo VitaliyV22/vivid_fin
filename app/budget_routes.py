@@ -34,7 +34,7 @@ def edit_budget(budget_id):
         flash('Budget updated successfully.')
         return redirect(url_for('budget.budget'))
     
-    return render_template('budget.html', title='Edit Budget', form=form, budget_id=budget_id)
+    return render_template('edit_budget.html', title='Edit Budget', form=form, budget_id=budget_id)
 
 @budget_bp.route('/delete_budget/<int:budget_id>', methods=['POST'])
 @login_required
