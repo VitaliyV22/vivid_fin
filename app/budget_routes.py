@@ -46,7 +46,7 @@ def delete_budget(budget_id):
     db.session.delete(budget)
     db.session.commit()
     flash('Budget deleted successfully')
-    return redirect(url_for('budget.budget'))
+    return redirect(request.referrer )
 
 
 @budget_bp.route('/', methods=['GET', 'POST'])

@@ -46,7 +46,7 @@ def delete_transaction(transaction_id):
     db.session.delete(transaction)
     db.session.commit()
     flash('Transaction deleted successfully')
-    return redirect(url_for('transaction.transactions'))
+    return redirect(request.referrer )
 
 
 @transaction_bp.route('/', methods=['GET','POST'])

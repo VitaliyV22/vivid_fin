@@ -47,7 +47,7 @@ def delete_savings_goal(savings_goal_id):
     db.session.delete(savings_goal)
     db.session.commit()
     flash('Savings goal deleted successfully')
-    return redirect(url_for('main.index'))
+    return redirect(request.referrer)
 
 @savings_goal_bp.route('/', methods=['GET', 'POST'])
 @login_required
