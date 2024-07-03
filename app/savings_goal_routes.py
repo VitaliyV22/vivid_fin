@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for,request
+from flask_login import current_user, login_required
 from flask_login import current_user, login_required
 from .models import SavingsGoal
 from .forms import SavingsGoalForm, EditSavingsGoalForm
