@@ -15,7 +15,7 @@ def add_budget():
         db.session.add(budget)
         db.session.commit()
         flash('Budget added successfully')
-        return redirect(url_for('budget.html'))
+        return redirect(url_for('main.index'))
     return render_template('add_budget.html', title='Add Budget', form=form)
 
 @budget_bp.route('/edit_budget/<int:budget_id>', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def edit_budget(budget_id):
         budget.amount = form.amount.data
         db.session.commit()
         flash('Budget updated successfully.')
-        return redirect(url_for('budget.budget'))
+        return redirect(url_for('main.index'))
     
     return render_template('edit_budget.html', title='Edit Budget', form=form, budget_id=budget_id)
 
@@ -46,7 +46,7 @@ def delete_budget(budget_id):
     db.session.delete(budget)
     db.session.commit()
     flash('Budget deleted successfully')
-    return redirect(request.referrer )
+    return redirect(request.referrer)
 
 
 @budget_bp.route('/', methods=['GET', 'POST'])
