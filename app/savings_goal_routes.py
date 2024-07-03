@@ -15,10 +15,10 @@ def add_savings_goal():
         db.session.add(savings_goal)
         db.session.commit()
         flash('Savings Goal added successfully')
-        return redirect(url_for('savings_goal.savings'))
+        return redirect(url_for('main.index'))
     return render_template('add_savings_goal.html', title='Add Savings Goal', form=form)
 
-savings_goal_bp.route('/edit_savings_goal/<int:savings_goal_id>', methods=['GET', 'POST'])
+@savings_goal_bp.route('/edit_savings_goal/<int:savings_goal_id>', methods=['GET', 'POST'])
 @login_required
 def edit_savings_goal(savings_goal_id):
     savings_goal = SavingsGoal.query.get_or_404(savings_goal_id)
@@ -37,7 +37,6 @@ def edit_savings_goal(savings_goal_id):
     
     return render_template('edit_savings_goal.html', title='Edit Savings Goal', form=form, savings_goal_id=savings_goal_id)
 
-
 @savings_goal_bp.route('/delete_savings_goal/<int:savings_goal_id>', methods=['POST'])
 @login_required
 def delete_savings_goal(savings_goal_id):
@@ -48,7 +47,7 @@ def delete_savings_goal(savings_goal_id):
     db.session.delete(savings_goal)
     db.session.commit()
     flash('Savings goal deleted successfully')
-    return redirect(url_for('savings_goal.savings'))
+    return redirect(url_for('main.index'))
 
 @savings_goal_bp.route('/', methods=['GET', 'POST'])
 @login_required
