@@ -32,7 +32,7 @@ def edit_transaction(transaction_id):
         transaction.category = form.category.data
         db.session.commit()
         flash('Transaction updated successfully.')
-        return redirect(request.referrer or url_for('main.index'))
+        return redirect(request.referrer or url_for('transactions.html'))
     
     return render_template('edit_transaction.html', title='Edit Transaction', form=form, transaction_id=transaction_id)
 

@@ -62,5 +62,16 @@ def change_password():
 
 @user_bp.route('/settings', methods=['GET', 'POST'])
 def settings():
-    return render_template('settings.html', title='Settings')
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if not current_user.check_password(form.old_password.data):
+            flash('Current password is incorrect', 'danger')
+            return redirect(url_for('user.change_password'))
+        
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash('Your password has been updated!', 'success')
+        return redirect(url_for('main.index'))
+    
+    return render_template('settings.html', title='Settings', form=form)
 
