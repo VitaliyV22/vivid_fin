@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block title %}Transaction{% endblock %} {%
     block content %}
  
-    <div
-    class="relative overflow-x-auto overflow-y-auto max-height-sm sm:rounded-lg border-2 border-black bg-blue-50"
+  <div
+    class="relative overflow-x-auto overflow-y-auto max-height-sm sm:rounded-lg border-2 border-black bg-blue-50 h-screen"
   >
     <div class="py-5 items-center justify-between gap-5 lg:flex">
       <div class="lg:flex items-center gap-5 ">
@@ -34,7 +34,7 @@
       </thead>
       <tbody class="">
         {% for transaction in transactions %}
-        <tr class="bg-blue-600 border-b border-blue-400">
+        <tr class="bg-blue-600 border-b border-blue-400 ">
           <td class="px-6 py-4">{{ transaction.category }}</td>
           <td class="px-6 py-4 bg-blue-500">
             {{ transaction.date.strftime('%Y-%m-%d') }}
