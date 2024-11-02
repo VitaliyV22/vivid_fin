@@ -1,8 +1,9 @@
+from dotenv import load_dotenv
 import os
+
+load_dotenv()  # take environment variables from .env.
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    SQLALCHEMY_DATABASE_URI ='postgresql://postgres:3znwxX6pV9OsQK9l5v1qvividfin.cdqg4cemyblo.us-east-1.rds.amazonaws.com:5432/postgres'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-
